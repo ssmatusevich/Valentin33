@@ -18,7 +18,7 @@ body {
         radial-gradient(circle at 50% 50%, #fff0f3 0%, transparent 60%);
 }
 
-/* Фон с плавающими сердечками */
+/* Floating hearts background */
 .hearts-bg {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -154,7 +154,7 @@ h1 {
     transform: translateY(0);
 }
 
-/* Кнопка включения/выключения музыки */
+/* Music toggle button */
 #music-toggle {
     position: fixed;
     bottom: 20px;
@@ -176,7 +176,7 @@ h1 {
     transform: scale(1.1);
 }
 
-/* Стили страницы после «Да» */
+/* Yes page specific */
 .yes-container h1.yes-title {
     font-size: 2.8rem;
     animation: bounceTitle 0.6s ease infinite alternate;
