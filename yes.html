@@ -1,32 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yay! 🎉</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Ура! 🎉</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <div class="hearts-bg"></div>
+    <div class="hearts-bg">
+        <span class="hearts-layer-1">❤️ 💘 💝 💖 💗 💕</span>
+        <span class="hearts-layer-2">💓 💞 💕 💗 💖 💘</span>
+    </div>
 
     <div class="container yes-container">
-        <h1 class="yes-title">Knew you would say yes! 🎉</h1>
+        <h1 class="yes-title">Я знал, что ты скажешь да, Катюш! 🎉</h1>
 
         <div class="gif-container">
-            <img id="cat-gif" src="https://media.tenor.com/eNHbizSfVb0AAAAj/lovemode-cute.gif" alt="celebrating">
+            <img id="cat-gif" src="https://media.tenor.com/eNHbizSfVb0AAAAj/lovemode-cute.gif" alt="празднуем">
         </div>
 
-        <p class="yes-message">You just made me the happiest person! 💕</p>
+        <p class="yes-message">Ты только что сделала меня самым счастливым мужем на свете! 💕</p>
+
+        <div class="love-letter" id="love-letter">
+            <p>Катюш, я так рад, что ты рядом. Каждый день с тобой — это праздник. Ты моё счастье, моя опора и мой лучший друг. Люблю тебя бесконечно ❤️</p>
+            <div class="signature">Твой муж 💌</div>
+        </div>
     </div>
 
     <audio id="bg-music" loop>
         <source src="music/beabadoobee - Glue Song (Lyrics).mp3" type="audio/mpeg">
     </audio>
 
-    <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
+    <button id="music-toggle" onclick="toggleMusic()" title="Включить/выключить музыку">🔊</button>
 
     <script src="yes-script.js"></script>
 </body>

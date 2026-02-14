@@ -1,9 +1,11 @@
+/* ═══ Сброс ═══ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ═══ Основной фон ═══ */
 body {
     background-color: #FFE4E8;
     font-family: 'Nunito', sans-serif;
@@ -16,9 +18,14 @@ body {
         radial-gradient(circle at 15% 85%, #ffb3c1 0%, transparent 40%),
         radial-gradient(circle at 85% 15%, #ff8fa3 0%, transparent 40%),
         radial-gradient(circle at 50% 50%, #fff0f3 0%, transparent 60%);
+    /* iPhone safe areas */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
-/* Floating hearts background */
+/* ═══ Плавающие сердечки — 4 потока ═══ */
 .hearts-bg {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -45,25 +52,62 @@ body {
     content: '💗 💕 💓 💖 💝';
 }
 
-@keyframes floatHearts {
-    from { transform: translateY(0); opacity: 0.15; }
-    to { transform: translateY(-110vh); opacity: 0; }
+/* Дополнительные потоки сердечек */
+.hearts-layer-1,
+.hearts-layer-2 {
+    position: absolute;
+    top: 100%;
+    white-space: nowrap;
+    pointer-events: none;
 }
 
+.hearts-layer-1 {
+    content: '';
+    left: 30%;
+    font-size: 2rem;
+    opacity: 0.1;
+    animation: floatHearts 16s linear infinite;
+    animation-delay: 3s;
+}
+.hearts-layer-1::after {
+    content: '❤️ 💘 💝 💖 💗 💕';
+}
+
+.hearts-layer-2 {
+    left: 80%;
+    font-size: 1rem;
+    opacity: 0.18;
+    animation: floatHearts 20s linear infinite;
+    animation-delay: 9s;
+}
+.hearts-layer-2::after {
+    content: '💓 💞 💕 💗 💖 💘';
+}
+
+@keyframes floatHearts {
+    from { transform: translateY(0); opacity: 0.15; }
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* ═══ Контейнер ═══ */
 .container {
     position: relative;
     z-index: 1;
     text-align: center;
     padding: 40px 20px;
+    max-width: 100vw;
 }
 
+/* ═══ Заголовок ═══ */
 h1 {
-    font-size: 2.4rem;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
     color: #d63384;
     font-weight: 900;
     margin-bottom: 20px;
     text-shadow: 2px 2px 0px rgba(214, 51, 132, 0.2);
     animation: wiggle 2s ease-in-out infinite;
+    line-height: 1.3;
+    padding: 0 10px;
 }
 
 @keyframes wiggle {
@@ -71,10 +115,12 @@ h1 {
     50% { transform: rotate(1deg); }
 }
 
+/* ═══ GIF-контейнер ═══ */
 .gif-container {
     margin: 20px auto;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 #cat-gif {
@@ -85,6 +131,7 @@ h1 {
     transition: opacity 0.3s ease;
 }
 
+/* ═══ Кнопки ═══ */
 .buttons {
     display: flex;
     gap: 20px;
@@ -104,9 +151,12 @@ h1 {
     font-family: 'Nunito', sans-serif;
     padding: 18px 45px;
     cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.15s, box-shadow 0.15s, font-size 0.3s ease, padding 0.3s ease;
     box-shadow: 0 6px 20px rgba(76, 175, 80, 0.45);
     letter-spacing: 1px;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 #yes-btn:hover {
@@ -128,15 +178,18 @@ h1 {
     font-family: 'Nunito', sans-serif;
     padding: 12px 28px;
     cursor: pointer;
-    transition: background 0.2s, left 0.25s ease, top 0.25s ease;
+    transition: background 0.2s, left 0.25s ease, top 0.25s ease, opacity 0.5s ease, font-size 0.3s ease;
     box-shadow: 0 4px 14px rgba(231, 76, 60, 0.4);
+    -webkit-tap-highlight-color: transparent;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 #no-btn:hover {
     background: linear-gradient(135deg, #c0392b, #a93226);
 }
 
-
+/* ═══ Toast-подсказка ═══ */
 #tease-toast {
     margin-top: 14px;
     font-size: 1rem;
@@ -154,11 +207,11 @@ h1 {
     transform: translateY(0);
 }
 
-/* Music toggle button */
+/* ═══ Кнопка музыки ═══ */
 #music-toggle {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    right: calc(20px + env(safe-area-inset-right));
     background: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 50%;
@@ -167,18 +220,104 @@ h1 {
     font-size: 1.4rem;
     cursor: pointer;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     transition: transform 0.2s;
     z-index: 100;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #music-toggle:hover {
     transform: scale(1.1);
 }
 
-/* Yes page specific */
+/* ═══ Анимация: дрожание кнопки «Нет» ═══ */
+@keyframes shake-light {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+@keyframes shake-medium {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(3px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(4px); }
+}
+
+@keyframes shake-heavy {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    15% { transform: translateX(-5px) rotate(-2deg); }
+    30% { transform: translateX(4px) rotate(1deg); }
+    45% { transform: translateX(-4px) rotate(-1deg); }
+    60% { transform: translateX(5px) rotate(2deg); }
+    75% { transform: translateX(-3px) rotate(-1deg); }
+    90% { transform: translateX(3px) rotate(1deg); }
+}
+
+.shake-1 { animation: shake-light 0.4s ease; }
+.shake-2 { animation: shake-medium 0.4s ease; }
+.shake-3 { animation: shake-heavy 0.5s ease; }
+
+/* ═══ Анимация: дрожание при побеге ═══ */
+@keyframes jiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+.jiggle {
+    animation: jiggle 0.3s ease infinite;
+}
+
+/* ═══ Анимация: пульсация кнопки «Да» ═══ */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+.pulse {
+    animation: pulse 0.8s ease-in-out infinite;
+}
+
+/* ═══ Анимация: всплывающие emoji-реакции ═══ */
+@keyframes floatEmoji {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(1.3);
+    }
+}
+
+.float-emoji {
+    position: absolute;
+    font-size: 1.6rem;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatEmoji 1.5s ease-out forwards;
+}
+
+/* ═══ След 💨 при побеге ═══ */
+@keyframes fadeTrail {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.5); }
+}
+
+.trail-poof {
+    position: fixed;
+    font-size: 1.4rem;
+    pointer-events: none;
+    z-index: 49;
+    animation: fadeTrail 0.5s ease-out forwards;
+}
+
+/* ═══ Страница «Да» — yes.html ═══ */
 .yes-container h1.yes-title {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
     animation: bounceTitle 0.6s ease infinite alternate;
 }
 
@@ -188,7 +327,7 @@ h1 {
 }
 
 .yes-message {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
     color: #e91e8c;
     font-weight: 700;
     margin-top: 24px;
@@ -203,4 +342,107 @@ h1 {
 .yes-container #cat-gif {
     width: 260px;
     height: 260px;
+}
+
+/* ═══ Блок-письмо ═══ */
+.love-letter {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1s ease, transform 1s ease;
+    margin-top: 30px;
+    padding: 24px 28px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(214, 51, 132, 0.15);
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.love-letter.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.love-letter p {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    color: #c2185b;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.love-letter .signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: #ad1457;
+    text-align: right;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* ═══ Адаптация под iPhone 16 и мобильные ═══ */
+@supports (padding: env(safe-area-inset-bottom)) {
+    body {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+        padding: 0 8px;
+    }
+
+    #cat-gif {
+        width: 160px;
+        height: 160px;
+    }
+
+    .buttons {
+        gap: 14px;
+    }
+
+    /* Стек-layout когда кнопка «Да» вырастет */
+    .buttons.stacked {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .yes-container #cat-gif {
+        width: 200px;
+        height: 200px;
+    }
+
+    .love-letter {
+        padding: 16px 18px;
+        margin-top: 20px;
+    }
+
+    .love-letter p {
+        font-size: 1rem;
+    }
+
+    #tease-toast {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 375px) {
+    h1 {
+        font-size: clamp(1.2rem, 5vw, 1.7rem);
+    }
+
+    #cat-gif {
+        width: 140px;
+        height: 140px;
+    }
+
+    .yes-container #cat-gif {
+        width: 180px;
+        height: 180px;
+    }
 }
